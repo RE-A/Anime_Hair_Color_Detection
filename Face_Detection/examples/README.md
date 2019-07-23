@@ -1,1 +1,1 @@
-이미지 출처: https://www.pixiv.net/member.php?id=11374250
+image source: https://www.pixiv.net/member.php?id=11374250
