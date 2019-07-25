@@ -2,7 +2,8 @@ import cv2
 import sys
 import os.path
 
-def detect(filename, cascade_file = "../lbpcascade_animeface.xml"):
+#def detect(filename, cascade_file = "../lbpcascade_animeface.xml"):
+def detect(filename, cascade_file = "C:/Users/unlea/OneDrive/Desktop/DeepLearning_Study-master/Anime_Pupil_Color_Detection/Face_Detection/lbpcascade_animeface.xml"):
     if not os.path.isfile(cascade_file):
         raise RuntimeError("%s: not found" % cascade_file)
 
@@ -25,8 +26,15 @@ def detect(filename, cascade_file = "../lbpcascade_animeface.xml"):
         cv2.waitKey(0)
         cv2.imwrite("cutted.png", cutted)
 
-if len(sys.argv) != 2:
-    sys.stderr.write("usage: detect.py <filename>\n")
-    sys.exit(-1)
-    
-detect(sys.argv[1])
+#if len(sys.argv) != 2:
+#    sys.stderr.write("usage: detect.py <filename>\n")
+#    sys.exit(-1)
+
+img_path = 'C:/Users/unlea/OneDrive/Desktop/DeepLearning_Study-master/Anime_Pupil_Color_Detection/Face_Detection/examples/image_original'    
+#detect(sys.argv[1])
+
+print(os.listdir(img_path))
+filelist = os.listdir(img_path)
+for file in filelist:
+    print(file)
+    detect(img_path + '/' + file)
