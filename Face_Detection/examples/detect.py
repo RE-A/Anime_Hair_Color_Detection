@@ -3,7 +3,10 @@ import sys
 import os.path
 
 #def detect(filename, cascade_file = "../lbpcascade_animeface.xml"):
-def detect(filename, cascade_file = "C:/Users/unlea/OneDrive/Desktop/DeepLearning_Study-master/Anime_Pupil_Color_Detection/Face_Detection/lbpcascade_animeface.xml"):
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def detect(filename, cascade_file = os.path.join(BASE_DIR,"lbpcascade_animeface.xml")):
     if not os.path.isfile(cascade_file):
         raise RuntimeError("%s: not found" % cascade_file)
 
@@ -24,13 +27,14 @@ def detect(filename, cascade_file = "C:/Users/unlea/OneDrive/Desktop/DeepLearnin
         cv2.imshow("AnimeFaceDetect", image)
         cv2.imshow("cutted", cutted) # 자른 이미지도 보여주기
         cv2.waitKey(0)
-        cv2.imwrite(filename + "_cutted.jpg", cutted)
+        cv2.imwrite(os.path.join(cut_path,os.path.basename(filename)) + "_cutted.jpg", cutted)
 
 #if len(sys.argv) != 2:
 #    sys.stderr.write("usage: detect.py <filename>\n")
 #    sys.exit(-1)
 
-img_path = 'C:/Users/unlea/OneDrive/Desktop/DeepLearning_Study-master/Anime_Pupil_Color_Detection/Face_Detection/examples/image_original'    
+img_path = os.path.join(BASE_DIR,'image_original')
+cut_path = os.path.join(BASE_DIR,'image_cut')
 #detect(sys.argv[1])
 
 print(os.listdir(img_path))
