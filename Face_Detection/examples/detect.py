@@ -24,7 +24,7 @@ def detect(filename, cascade_file = "C:/Users/unlea/OneDrive/Desktop/DeepLearnin
         cv2.imshow("AnimeFaceDetect", image)
         cv2.imshow("cutted", cutted) # 자른 이미지도 보여주기
         cv2.waitKey(0)
-        cv2.imwrite("cutted.png", cutted)
+        cv2.imwrite(filename + "_cutted.jpg", cutted)
 
 #if len(sys.argv) != 2:
 #    sys.stderr.write("usage: detect.py <filename>\n")
