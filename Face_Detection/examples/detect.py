@@ -23,11 +23,11 @@ def detect(filename, cascade_file = os.path.join(BASE_DIR,"lbpcascade_animeface.
     for (x, y, w, h) in faces:
         #cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2) # 아직 확실치않아 주석처리
         cutted = image[y:y+h, x:x+w] # 이미지를 자르는 부분
-
+        resized = cv2.resize(cutted, dsize = (100, 100), interpolation = cv2.INTER_LINEAR)
         cv2.imshow("AnimeFaceDetect", image)
-        cv2.imshow("cutted", cutted) # 자른 이미지도 보여주기
+        cv2.imshow("cutted + resized", resized) # 자른 이미지도 보여주기
         cv2.waitKey(0)
-        cv2.imwrite(os.path.join(cut_path,os.path.basename(filename)) + "_cutted.jpg", cutted)
+        cv2.imwrite(os.path.join(cut_path,os.path.basename(filename)) + "_cutted+resized.jpg", resized)
 
 #if len(sys.argv) != 2:
 #    sys.stderr.write("usage: detect.py <filename>\n")
