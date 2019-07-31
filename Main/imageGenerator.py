@@ -49,6 +49,7 @@ def ImageGenerate(TRAIN_DIR, GENE_DIR, Traincount=20, Debug=0):
                     break
         return None
 
+    # 넘겨줄 이미지의 수
     train_generator = datagen.flow_from_directory(
         TRAIN_DIR,
         target_size=(30, 30),
