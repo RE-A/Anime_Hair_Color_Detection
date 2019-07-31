@@ -1,5 +1,4 @@
-from keras import applications
-from keras import optimizers
+import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
@@ -18,7 +17,7 @@ GENERATED_TRAINING_SET_DIR = os.path.join(ROOT_DIR, 'Generated_training_set')
 
 
 # 생성된 Training Set
-trainingGenerator = imageGenerator.ImageGenerate(TRAINING_SET_DIR,GENERATED_TRAINING_SET_DIR, Traincount=5, Debug=0)
+trainingGenerator = imageGenerator.ImageGenerate(TRAINING_SET_DIR,GENERATED_TRAINING_SET_DIR, batch_size=50, Debug=0)
 
 
 # padding 옵션은 에러때문에 추가함. 지워야할수도?
@@ -40,8 +39,8 @@ model.add(Dense(64))
 model.add(Activation('relu'))
 
 model.add(Dropout(0.5))
-model.add(Dense(3))
-model.add(Activation('sigmoid'))
+model.add(Dense(8))
+model.add(Activation('softmax'))
 
 model.compile(loss='categorical_crossentropy',
               optimizer='rmsprop',
@@ -52,8 +51,6 @@ model.fit_generator(trainingGenerator,
                     steps_per_epoch=1000)
 
 model.save_weights('first_try.h5')
-
-
 
 
 

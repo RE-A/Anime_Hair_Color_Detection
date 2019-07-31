@@ -31,10 +31,10 @@ datagen = ImageDataGenerator(
     fill_mode='nearest')
 
 
-def ImageGenerate(TRAIN_DIR, GENE_DIR, Traincount=20, Debug=0):
-    # Traincount = 이미지 하나당 몇개의 변형 이미지를 생성할 것인가?
+def ImageGenerate(TRAIN_DIR, GENE_DIR, batch_size=5, Traincount=20, Debug=0):
+    # Traincount = 이미지 하나당 몇개의 변형 이미지를 생성할 것인가? ( Debug 모드에서만 작동하는 변수. 실사용 용도면 아무런 상관없음.)
     # Debug = 생성된 이미지의 단순 확인을 위해서인가?
-
+    # batch_size = 배치 사이즈
     if Debug is 1:
         TrainingList = os.listdir(TRAIN_DIR)
         for originalImg in TrainingList:
@@ -42,7 +42,7 @@ def ImageGenerate(TRAIN_DIR, GENE_DIR, Traincount=20, Debug=0):
             x = img_to_array(img)
             x = x.reshape((1,) + x.shape)
             i = 1
-            for batch in datagen.flow(x, batch_size=1, save_to_dir=GENE_DIR, save_prefix='gen',
+            for batch in datagen.flow(x, batch_size=batch_size, save_to_dir=GENE_DIR, save_prefix='gen',
                                       save_format='jpeg'):
                 i += 1
                 if i > Traincount:
@@ -53,7 +53,7 @@ def ImageGenerate(TRAIN_DIR, GENE_DIR, Traincount=20, Debug=0):
     train_generator = datagen.flow_from_directory(
         TRAIN_DIR,
         target_size=(30, 30),
-        batch_size=10,
+        batch_size=batch_size,
         class_mode='categorical'
     )
 
