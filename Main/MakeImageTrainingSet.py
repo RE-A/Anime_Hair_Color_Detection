@@ -49,7 +49,7 @@ model.compile(loss='categorical_crossentropy',
 
 
 model.fit_generator(trainingGenerator,
-                    steps_per_epoch=1)
+                    steps_per_epoch=1000)
 
 model.save_weights('first_try.h5')
 
