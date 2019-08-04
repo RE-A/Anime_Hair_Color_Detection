@@ -1,6 +1,6 @@
 # This file is for generating training set with keras.ImageDataGenerator.
 # WARNING: 테스트 중일땐 img_cut에 절대 많은 수의 사진을 넣지 말것! 몇천장 지우는데도 한세월임.
-from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+from keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 import os
 
 # rotation_range: 이미지 회전 범위 (degrees)
@@ -28,6 +28,7 @@ datagen = ImageDataGenerator(
     shear_range=0.2,
     zoom_range=0.2,
     horizontal_flip=True,
+    data_format="channels_last",
     fill_mode='nearest')
 
 
@@ -54,7 +55,7 @@ def ImageGenerate(TRAIN_DIR, GENE_DIR, batch_size=5, Traincount=20, Debug=0):
         TRAIN_DIR,
         target_size=(30, 30),
         batch_size=batch_size,
-        class_mode='categorical'
+        class_mode='binary'
     )
 
     return train_generator

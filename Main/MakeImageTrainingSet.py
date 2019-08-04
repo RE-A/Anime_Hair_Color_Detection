@@ -17,12 +17,12 @@ GENERATED_TRAINING_SET_DIR = os.path.join(ROOT_DIR, 'Generated_training_set')
 
 
 # 생성된 Training Set
-trainingGenerator = imageGenerator.ImageGenerate(TRAINING_SET_DIR,GENERATED_TRAINING_SET_DIR, batch_size=50, Debug=0)
+trainingGenerator = imageGenerator.ImageGenerate(TRAINING_SET_DIR,GENERATED_TRAINING_SET_DIR, batch_size=32, Debug=0)
 
 
 # padding 옵션은 에러때문에 추가함. 지워야할수도?
 model = Sequential()
-model.add(Conv2D(32, (3, 3), padding='same', input_shape=(3, 30, 30)))
+model.add(Conv2D(32, (3, 3), padding='same', input_shape=(30, 30, 3), data_format="channels_last"))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
@@ -39,16 +39,17 @@ model.add(Dense(64))
 model.add(Activation('relu'))
 
 model.add(Dropout(0.5))
-model.add(Dense(8))
-model.add(Activation('softmax'))
+model.add(Dense(1))
+model.add(Activation('sigmoid'))
 
-model.compile(loss='categorical_crossentropy',
+model.summary()
+model.compile(loss='binary_crossentropy',
               optimizer='rmsprop',
               metrics=['accuracy'])
 
 
 model.fit_generator(trainingGenerator,
-                    steps_per_epoch=1000)
+                    steps_per_epoch=500)
 
 model.save_weights('first_try.h5')
 
