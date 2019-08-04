@@ -51,7 +51,4 @@ model.compile(loss='binary_crossentropy',
 model.fit_generator(trainingGenerator,
                     steps_per_epoch=500)
 
-model.save_weights('first_try.h5')
-
-
-
+model.save('first_try.h5')
