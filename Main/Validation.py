@@ -3,9 +3,8 @@ import numpy as np
 import cv2
 from keras.models import load_model
 import matplotlib.pyplot as plt
-
 import os
-import cv2
+from PIL import Image
 
 import ValidationImageGenerator
 
@@ -17,7 +16,7 @@ GENERATED_TRAINING_SET_DIR = os.path.join(ROOT_DIR, 'Generated_training_set')
 testGenerator = ValidationImageGenerator.ImageGenerate(VALIDATION_SET_DIR, GENERATED_TRAINING_SET_DIR, batch_size=1)
 
 # load keras model
-model = load_model('first_try.h5')
+model = load_model(os.path.join(ROOT_DIR,'first_try.h5'))
 model.summary()
 
 # 전체 테스트셋의 정확도
@@ -33,7 +32,12 @@ print(testGenerator.class_indices)
 print(output)
 
 # 개별 이미지의 예측값 보여줌
-testIm = plt.imread(os.path.join(ROOT_DIR, 'validation_set', 'Black', '4840111.png_cutted+resized (1).jpg'))
+imgpath = os.path.join(ROOT_DIR, 'validation_set', 'Black', '4840794.jpg_cutted+resized.jpg')
+
+originIm = Image.open(imgpath)
+
+testIm = np.array(originIm.resize((30,30)))
+
 plt.imshow(testIm)
 plt.waitforbuttonpress()
 
